@@ -34,8 +34,8 @@ fun main() {
         when(scanner.nextInt()) {
             1 -> println(ShoppingCartItems.addingItems())
             2 -> println(ShoppingCartItems.removeItems())
-            3 -> println("Total price without discounts: ${ShoppingCartItems.totalPrice().toString()}")
-            4 -> println("Total price with discount : ${ShoppingCartItems.discountedPrice().toString()}")
+            3 -> println("Total price without discount : ${ShoppingCartItems.totalPrice().toString()}")
+            4 -> println("Discounted price : ${ShoppingCartItems.discountedPrice().toString()}")
         }
         println("Do you want to continue")
         val userChoice= readLine()
