@@ -2,40 +2,63 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 val scan=Scanner(System.`in`)
-val movieList:MutableList<Movie> = mutableListOf()
+// Movie class to store the attributes
 data class Movie(val title:String, val year:Int, val rating:Double, val language:String)
 
 class IMDB {
-    fun search(userSearch: Any):ArrayList<Movie>{
+    // function to add the attributes into mutable list
+    fun addAttributes(movieList: MutableList<Movie>) {
+        print("Enter movie title : ")
+        val title = readln()
+        print("Enter released year: ")
+        val year=scan.nextInt()
+        print("Enter IMDB rating : ")
+        val rating=scan.nextDouble()
+        print("Enter language of movie:")
+        val language= readln()
+        movieList.add(Movie(title, year, rating, language))
+    }
+
+    //function to search the attributes
+    fun searchAttributes(userSearch: Any, movieList: MutableList<Movie>):ArrayList<Movie>{
         val movie= ArrayList<Movie>()
         for( i in movieList) {
             if(i.title.lowercase().contains(userSearch.toString().lowercase()) ||
                     i.year.toString().contains(userSearch.toString().lowercase())||
                     i.rating.toString().contains(userSearch.toString().lowercase())||
-                    i.language.lowercase().contains(userSearch.toString().lowercase()))
+                    i.language.lowercase().contains(userSearch.toString().lowercase())) {
                 movie.add(i)
+            }
         }
         return movie
     }
-    fun movieRating(rate:Double):ArrayList<Movie> {
+
+    // function to get the list of movies whose rating is greater than the user input
+    fun movieRating(rate: Double, movieList: MutableList<Movie>):ArrayList<Movie> {
         val movieRatingList= ArrayList<Movie>()
-        for(i in movieList)
-            if(i.rating> rate) movieRatingList.add(i)
+        for(i in movieList) {
+            if(i.rating> rate) {
+                movieRatingList.add(i)
+            }
+        }
         return movieRatingList
     }
 }
+// Main Method
 fun main() {
-    val imdb=IMDB()
-    movieList.add(Movie("Mem Famous",2023,8.2,"Telugu"))
-    movieList.add(Movie("HIT",2020,7.6,"Telugu"))
-    movieList.add(Movie("Vada chennai",2018,8.4,"Tamil"))
-    movieList.add(Movie("the meg",2002,5.6,"English"))
-    movieList.add(Movie("Shang chi",2021,8.4,"English"))
-    val search= readln()?.trim()
-    if(search!=null) {
-        val searchList = imdb.search(search)
-        searchList.forEach { println(it.title) }
-    }
-    val ratingList =imdb.movieRating(scan.nextDouble())
-    ratingList.forEach{println(it.title)}
+    val imdb = IMDB()
+    val movieList:MutableList<Movie> = mutableListOf( )
+    //Add Attributes
+    do {
+        imdb.addAttributes(movieList)
+        print("Do you want to continue: ")
+    }while(readln()=="yes")
+    // Search Attributes
+    print("Enter the attribute do you want to search: ")
+    val searchList = imdb.searchAttributes(readln(),movieList)
+    searchList.forEach { println(it.title) }
+    // Check the rating
+    print("Enter the rating to check: ")
+    val ratingList = imdb.movieRating(scan.nextDouble(),movieList)
+    ratingList.forEach { println(it.title) }
 }
