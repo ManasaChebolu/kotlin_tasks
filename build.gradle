@@ -1,0 +1,13 @@
+dependencies {
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2'
+    plugins {
+        kotlin("jvm") version "1.5.21" // Replace with your Kotlin version
+    }
+
+    dependencies {
+        implementation(kotlin("stdlib-jdk8"))
+
+
+
+    }
+}
