@@ -50,6 +50,27 @@ class IMDB {
         }
         return movieRatingList
     }
+    // function to remove attributes
+    fun removeAttributes(movieList: MutableList<Movie>) {
+        try {
+            print("Enter index to remove that movie: ")
+            movieList.removeAt(scan.nextInt())
+        }catch (e:Exception) {
+                println("Enter index in range")
+        }
+    }
+    // favourite list of movies
+    fun favouriteList(movieList: MutableList<Movie>) {
+        val favouritelist=ArrayList<Movie>()
+        println("Enter your favourite movie title:")
+        val title= readln().lowercase()
+        for(i in 0..<movieList.size){
+            if(movieList[i].title==title) {
+                favouritelist.add(movieList[i])
+            }
+        }
+        println("Favourite list is $favouritelist")
+    }
 }
 // Main Method
 fun main() {
@@ -57,7 +78,7 @@ fun main() {
     val movieList:MutableList<Movie> = mutableListOf( )
     //Add Attributes
     do {
-        println("1.add attributes ,2.search attributes, 3.check the rating,4.Sorting")
+        println("1.add attributes ,2.search attributes, 3.check the rating,4.Sorting,5.remove attributes,6.favourite list of movies")
         when(scan.nextInt()) {
             1-> imdb.addAttributes(movieList)
             2-> { print("Enter the attribute do you want to search: ")
@@ -79,6 +100,8 @@ fun main() {
                      else -> println("No such attribute")
                  }
                  }
+            5-> imdb.removeAttributes(movieList)
+            6-> imdb.favouriteList(movieList)
             else -> println("choose right operation")
         }
         print("Do you want to continue: ")
