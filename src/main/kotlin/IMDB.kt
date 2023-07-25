@@ -29,9 +29,9 @@ class IMDB {
         for( i in movieList) {
             with(userSearch.toString().lowercase()) {
                 if(i.title.lowercase().contains(this) ||
-                    i.year.toString().contains(userSearch.toString().lowercase())||
-                    i.rating.toString().contains(userSearch.toString().lowercase())||
-                    i.language.lowercase().contains(userSearch.toString().lowercase())) {
+                    i.year.toString().contains(this)||
+                    i.rating.toString().contains(this)||
+                    i.language.lowercase().contains(this)) {
                     movie.add(i)
                 }
             }
@@ -57,7 +57,7 @@ fun main() {
     val movieList:MutableList<Movie> = mutableListOf( )
     //Add Attributes
     do {
-        println("1.add attributes ,2.search attributes, 3.check the rating")
+        println("1.add attributes ,2.search attributes, 3.check the rating,4.Sorting")
         when(scan.nextInt()) {
             1-> imdb.addAttributes(movieList)
             2-> { print("Enter the attribute do you want to search: ")
@@ -70,6 +70,16 @@ fun main() {
                }catch (e:Exception) {
                     println("typeMismatchException")
                }
+            4-> { println("1.sortTitle,2.sortYear,3.sortRating,4.sortLanguage")
+                 when(scan.nextInt()) {
+                     1-> println(movieList.sortedBy { it.title })
+                     2->println(movieList.sortedBy { it.year })
+                     3->println(movieList.sortedBy { it.rating })
+                     4->println(movieList.sortedBy { it.language })
+                     else -> println("No such attribute")
+                 }
+                 }
+            else -> println("choose right operation")
         }
         print("Do you want to continue: ")
     }while(readln()=="yes")
