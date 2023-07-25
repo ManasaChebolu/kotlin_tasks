@@ -29,9 +29,9 @@ class IMDB {
         for( i in movieList) {
             with(userSearch.toString().lowercase()) {
                 if(i.title.lowercase().contains(this) ||
-                    i.year.toString().contains(userSearch.toString().lowercase())||
-                    i.rating.toString().contains(userSearch.toString().lowercase())||
-                    i.language.lowercase().contains(userSearch.toString().lowercase())) {
+                    i.year.toString().contains(this)||
+                    i.rating.toString().contains(this)||
+                    i.language.lowercase().contains(this)) {
                     movie.add(i)
                 }
             }
