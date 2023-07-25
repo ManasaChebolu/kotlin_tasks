@@ -71,39 +71,61 @@ class IMDB {
         }
         println("Favourite list is $favouritelist")
     }
+    //function for password validation
+    fun passwordValidation(password:String) :Boolean{
+       for(i in password.toString()) {
+           if (i !in 'A'..'Z' && i !in 'a'..'z' && i !in '0'..'9' && i != '_') {
+               return false
+           }
+       }
+        return true
+    }
 }
 // Main Method
 fun main() {
     val imdb = IMDB()
     val movieList:MutableList<Movie> = mutableListOf( )
-    //Add Attributes
-    do {
-        println("1.add attributes ,2.search attributes, 3.check the rating,4.Sorting,5.remove attributes,6.favourite list of movies")
-        when(scan.nextInt()) {
-            1-> imdb.addAttributes(movieList)
-            2-> { print("Enter the attribute do you want to search: ")
-                  val searchList = imdb.searchAttributes(readln(),movieList)
-                  searchList.forEach { println(it.title) } }
-            3-> try{
+    //User login
+    print("Enter user name: ")
+    val user= readln()
+    print("Enter user password: ")
+    if(imdb.passwordValidation(readln())) {
+        do {
+            println("1.add attributes ,2.search attributes, 3.check the rating,4.Sorting,5.remove attributes,6.favourite list of movies")
+            when (scan.nextInt()) {
+                1 -> imdb.addAttributes(movieList)
+                2 -> {
+                    print("Enter the attribute do you want to search: ")
+                    val searchList = imdb.searchAttributes(readln(), movieList)
+                    searchList.forEach { println(it.title) }
+                }
+
+                3 -> try {
                     print("Enter the rating to check: ")
-                    val ratingList = imdb.movieRating(scan.nextDouble(),movieList)
+                    val ratingList = imdb.movieRating(scan.nextDouble(), movieList)
                     ratingList.forEach { println(it.title) }
-               }catch (e:Exception) {
+                } catch (e: Exception) {
                     println("typeMismatchException")
-               }
-            4-> { println("1.sortTitle,2.sortYear,3.sortRating,4.sortLanguage")
-                 when(scan.nextInt()) {
-                     1-> println(movieList.sortedBy { it.title })
-                     2->println(movieList.sortedBy { it.year })
-                     3->println(movieList.sortedBy { it.rating })
-                     4->println(movieList.sortedBy { it.language })
-                     else -> println("No such attribute")
-                 }
-                 }
-            5-> imdb.removeAttributes(movieList)
-            6-> imdb.favouriteList(movieList)
-            else -> println("choose right operation")
-        }
-        print("Do you want to continue: ")
-    }while(readln()=="yes")
+                }
+
+                4 -> {
+                    println("1.sortTitle,2.sortYear,3.sortRating,4.sortLanguage")
+                    when (scan.nextInt()) {
+                        1 -> println(movieList.sortedBy { it.title })
+                        2 -> println(movieList.sortedBy { it.year })
+                        3 -> println(movieList.sortedBy { it.rating })
+                        4 -> println(movieList.sortedBy { it.language })
+                        else -> println("No such attribute")
+                    }
+                }
+
+                5 -> imdb.removeAttributes(movieList)
+                6 -> imdb.favouriteList(movieList)
+                else -> println("choose right operation")
+            }
+            print("Do you want to continue: ")
+        } while (readln() == "yes")
+    }else {
+        println("Please enter valid password")
+    }
 }
