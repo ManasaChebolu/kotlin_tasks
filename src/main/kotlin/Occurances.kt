@@ -9,7 +9,7 @@ fun main() = runBlocking {
         val jobList = mutableListOf<Job>()
     try {
         for (file in files) {
-            jobList += launch { processFile(file, scores) }
+            jobList += launch(Dispatchers.IO) { processFile(file, scores) }
         }
         jobList.joinAll()
     }catch (e:Exception) {
